@@ -1,0 +1,18 @@
+        // Muat data dari server
+        function loadData() {
+            $.ajax({
+                url: urls.data,
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    records = data;
+                    renderTable();
+                },
+                error: function (xhr) {
+                    console.error('Error:', xhr.responseText);
+                    $('#pendaftaran-table tbody').html(emptyRow('bi-wifi-off', 'Gagal memuat data. Silakan refresh halaman.'));
+                },
+            });
+        }
+
+        loadData();

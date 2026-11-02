@@ -1,0 +1,35 @@
+        // Simpan data (create / update)
+        $('#saveBtn').click(function () {
+            const btn = $(this);
+            const id = $('#id').val();
+
+            btn.prop('disabled', true);
+            btn.find('.submit-text').text('Menyimpan...');
+            btn.find('.spinner-border').removeClass('d-none');
+            clearErrors();
+
+            // FormData dipakai (bukan serialize) agar file ikut terkirim
+            const formData = new FormData(document.getElementById('pendaftaranForm'));
+
+            if (id) {
+                formData.append('_method', 'PUT');
+            }
+
+            $.ajax({
+                url: id ? urls.update.replace(':id', id) : urls.store,
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                dataType: 'json',
+                success: function (response) {
+                    pendaftaranModal.hide();
+                    loadData();
+                    showAlert(response.success);
+                },
+                error: function (xhr) {
+                    if (xhr.status === 422) {
+                        $.each(xhr.responseJSON.errors, function (key, value) {
+                            $(`#${key}`).addClass('is-invalid');
+                            $(`#${key}-error`).text(value[0]);
+                        });

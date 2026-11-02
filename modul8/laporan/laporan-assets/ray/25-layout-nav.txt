@@ -1,0 +1,7 @@
+                    @if (auth()->user()->isAdmin())
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('admin.users.*') ? 'active' : '' }}" href="{{ route('admin.users.index') }}">
+                                <i class="bi bi-people me-1"></i> Kelola User
+                            </a>
+                        </li>
+                    @endif

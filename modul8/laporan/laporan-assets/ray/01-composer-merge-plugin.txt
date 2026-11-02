@@ -1,0 +1,4 @@
+"extra": {
+        "laravel": {
+            "dont-discover": []
+        }

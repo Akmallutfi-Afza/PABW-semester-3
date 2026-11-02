@@ -1,0 +1,44 @@
+        // Edit data
+        $(document).on('click', '.edit', function () {
+            const id = $(this).data('id');
+
+            $.get(urls.edit.replace(':id', id), function (data) {
+                $('#pendaftaranModalLabel').text('Edit Pendaftar');
+                $('#id').val(data.id);
+                $('#nama').val(data.nama);
+                $('#asal_sekolah').val(data.asal_sekolah);
+                $('#prodi_tujuan').val(data.prodi_tujuan);
+                $('#email').val(data.email);
+                $('#no_hp').val(data.no_hp);
+                setFileMode(data);
+                pendaftaranModal.show();
+            }).fail(function () {
+                showAlert('Gagal memuat data untuk diedit.', 'danger');
+            });
+        });
+
+        // Hapus data
+        $(document).on('click', '.delete', function () {
+            const id = $(this).data('id');
+            const nama = $(this).data('nama');
+
+            confirmDelete(`Data pendaftar "${nama}" akan dihapus dan tidak bisa dikembalikan.`).then(function (confirmed) {
+                if (! confirmed) {
+                    return;
+                }
+
+                $.ajax({
+                    type: 'DELETE',
+                    url: urls.destroy.replace(':id', id),
+                    dataType: 'json',
+                    success: function (response) {
+                        loadData();
+                        showAlert(response.success);
+                    },
+                    error: function () {
+                        showAlert('Gagal menghapus data. Silakan coba lagi.', 'danger');
+                    },
+                });
+            });
+        });
+    })

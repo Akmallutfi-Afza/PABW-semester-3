@@ -1,0 +1,4 @@
+    public function getData(): JsonResponse
+    {
+        return response()->json(Daftar::latest()->get());
+    }

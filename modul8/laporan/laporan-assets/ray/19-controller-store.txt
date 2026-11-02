@@ -1,0 +1,12 @@
+    public function store(DaftarRequest $request): JsonResponse
+    {
+        $data = $request->safe()->except('berkas');
+
+        $file = $request->file('berkas');
+        $data['berkas'] = $file->store('berkas_pendaftaran', 'public');
+        $data['nama_berkas'] = $file->getClientOriginalName();
+
+        Daftar::create($data);
+
+        return response()->json(['success' => 'Data berhasil disimpan.']);
+    }

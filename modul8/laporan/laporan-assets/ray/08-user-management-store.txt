@@ -1,0 +1,7 @@
+    public function store(StoreUserRequest $request): RedirectResponse
+    {
+        User::create($request->validated());
+
+        return redirect()->route('admin.users.index')
+            ->with('success', 'User berhasil ditambahkan.');
+    }
