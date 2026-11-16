@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Rangkuman Asesmen 2 Praktikum PABW</title>
+<style>
+    @page { size: A4 portrait; margin: 0; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+        font-family: "Segoe UI", Arial, sans-serif;
+        font-size: 6.8pt;
+        line-height: 1.16;
+        color: #16202e;
+        background: #fff;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+    .page {
+        width: 210mm;
+        height: 297mm;
+        padding: 6mm 7.5mm 5.5mm;
+        overflow: hidden;
+        page-break-after: always;
+        position: relative;
+    }
+    .page:last-child { page-break-after: auto; }
+    .page1 { font-size: 6.55pt; }
+    .page1 pre { font-size: 5.6pt; }
+    .masthead {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        border-bottom: 2.2pt solid #1e3a8a;
+        padding-bottom: 1.2mm;
+        margin-bottom: 1.8mm;
+    }
+    .masthead h1 {
+        margin: 0;
+        font-size: 12.4pt;
+        letter-spacing: .2pt;
+        color: #1e3a8a;
+        line-height: 1.05;
+    }
+    .masthead .sub {
+        margin: .6mm 0 0;
+        font-size: 7.1pt;
+        color: #475569;
+    }
+    .masthead .badge {
+        text-align: right;
+        font-size: 6.6pt;
+        color: #334155;
+        line-height: 1.35;
+    }
+    .masthead .badge b {
+        display: inline-block;
+        background: #1e3a8a;
+        color: #fff;
+        padding: .6mm 2mm;
+        border-radius: 1mm;
+        font-size: 6.8pt;
+        letter-spacing: .4pt;
+    }
+    .idline {
+        display: flex;
+        gap: 5mm;
+        font-size: 6.7pt;
+        color: #64748b;
+        margin: -0.4mm 0 1.6mm;
+    }
+    .idline span { border-bottom: .4pt dotted #94a3b8; flex: 0 0 auto; padding-right: 14mm; }
+    .cols {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 5.2mm;
+        height: 100%;
+    }
+    .col { display: flex; flex-direction: column; }
+    .item {
+        break-inside: avoid;
+        padding: 0 0 1.1mm;
+        margin-bottom: 1.1mm;
+        border-bottom: .45pt solid #e2e8f0;
+    }
+    .item:last-child { border-bottom: none; }
+    h2 {
+        margin: 0 0 .5mm;
+        font-size: 7.3pt;
+        line-height: 1.1;
+        color: #0f172a;
+    }
+    h2 .n {
+        display: inline-block;
+        min-width: 4.2mm;
+        height: 4.2mm;
+        line-height: 4.2mm;
+        text-align: center;
+        background: #1e3a8a;
+        color: #fff;
+        border-radius: .8mm;
+        font-size: 6.5pt;
+        margin-right: 1.2mm;
+        vertical-align: .25mm;
+    }
+    pre {
+        margin: .4mm 0 .5mm;
+        padding: .7mm 1.2mm;
+        background: #f1f5f9;
+        border-left: 1.6pt solid #64748b;
+        border-radius: .6mm;
+        font-family: Consolas, "Courier New", monospace;
+        font-size: 5.8pt;
+        line-height: 1.19;
+        white-space: pre-wrap;
+        word-break: break-word;
+        color: #0f172a;
+    }
+    pre.snip { background: #f8fafc; border-left-color: #1e3a8a; }
+    pre .c { color: #64748b; }
+    .guna { margin: .3mm 0 .35mm; text-align: justify; }
+    .guna b { color: #1e3a8a; }
+    .note {
+        margin-top: auto;
+        border: .6pt dashed #b45309;
+        background: #fffbeb;
+        color: #78350f;
+        padding: 1mm 1.4mm;
+        border-radius: 1mm;
+        font-size: 6.15pt;
+        line-height: 1.22;
+    }
+    .note b { color: #92400e; }
+    .foot {
+        position: absolute;
+        bottom: 2.2mm;
+        left: 8mm;
+        right: 8mm;
+        display: flex;
+        justify-content: space-between;
+        font-size: 6.2pt;
+        color: #94a3b8;
+        border-top: .4pt solid #e2e8f0;
+        padding-top: .8mm;
+    }
+    .quick {
+        margin-top: 2mm;
+        margin-bottom: 0;
+        background: #eef2ff;
+        border: .5pt solid #c7d2fe;
+        border-radius: 1mm;
+        padding: 1.1mm 1.5mm;
+        font-size: 6.15pt;
+        line-height: 1.28;
+    }
+    .quick b { color: #1e3a8a; }
+    .quick code { font-family: Consolas, monospace; font-size: 5.9pt; }
+</style>
+</head>
+<body>
+
+<!-- ============================ HALAMAN 1 ============================ -->
+<div class="page page1">
+    <div class="masthead">
+        <div>
+            <h1>RANGKUMAN ASESMEN 2 — PRAKTIKUM PABW</h1>
+            <p class="sub">Jalur B &middot; Laravel 13 HMVC (nwidart/laravel-modules) + React Starter Kit + Inertia.js + Fetch API</p>
+        </div>
+        <div class="badge"><b>JALUR B</b><br>HMVC &middot; React &middot; Inertia &middot; Fetch</div>
+    </div>
+    <div class="idline">
+        <span>Nama: ______________________</span>
+        <span>NIM: ________________</span>
+        <span>Kelas: __________</span>
+    </div>
+
+    <div class="cols">
+        <!-- KOLOM KIRI: 1-6 -->
+        <div class="col">
+            <div class="item">
+                <h2><span class="n">1</span>Pembuatan &amp; Konfigurasi Proyek Laravel</h2>
+                <pre><code>$ composer create-project laravel/react-starter-kit pertemuan9_hmvc_react
+$ cd pertemuan9_hmvc_react
+$ composer install &amp;&amp; npm install
+$ php artisan key:generate
+$ composer run dev        <span class="c"># server + Vite + queue</span></code></pre>
+                <p class="guna"><b>Kegunaan:</b> <i>create-project</i> mengambil skeleton React Starter Kit (Inertia + Fortify sudah terpasang); <i>install</i> memasang dependensi PHP/JS; <i>key:generate</i> mengisi APP_KEY untuk enkripsi session/cookie; <i>run dev</i> menjalankan server development.</p>
+                <pre class="snip"><code><span class="c">// composer.json — paket inti proyek ini</span>
+"inertiajs/inertia-laravel": "^3.0",
+"laravel/fortify": "^1.37.2",
+"nwidart/laravel-modules": "^13.3"</code></pre>
+            </div>
+
+            <div class="item">
+                <h2><span class="n">2</span>Konfigurasi Database MySQL &amp; File .env</h2>
+                <pre><code><span class="c">-- phpMyAdmin / Laragon</span>
+CREATE DATABASE hmvc_react;
+$ php artisan config:clear
+$ php artisan migrate</code></pre>
+                <p class="guna"><b>Kegunaan:</b> <i>config:clear</i> menghapus cache config agar perubahan <i>.env</i> langsung terbaca; <i>migrate</i> membuat tabel sesuai file migration.</p>
+                <pre class="snip"><code>DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=hmvc_react
+DB_USERNAME=root
+DB_PASSWORD=</code></pre>
+            </div>
+
+            <div class="item">
+                <h2><span class="n">3</span>Arsitektur HMVC (nwidart/laravel-modules)</h2>
+                <pre><code>$ composer require nwidart/laravel-modules
+$ php artisan module:make UserManagement Pendaftaran
+$ php artisan module:list</code></pre>
+                <p class="guna"><b>Kegunaan:</b> <i>module:make</i> membuat folder modul mandiri (Controller, Model, Route, View, Migration, Provider); <i>module:list</i> memastikan modul aktif. Setiap modul punya route &amp; service provider sendiri, tetapi berjalan dalam satu aplikasi.</p>
+                <pre class="snip"><code><span class="c">// modules_statuses.json</span>
+{ "UserManagement": true, "Pendaftaran": true }
+
+<span class="c">// composer.json — autoload PSR-4 per modul</span>
+"Modules\\Pendaftaran\\": "Modules/Pendaftaran/app/"</code></pre>
+            </div>
+
+            <div class="item">
+                <h2><span class="n">4</span>Pembuatan Modul: Model, View, Controller, Route</h2>
+                <pre><code>$ php artisan module:make-controller PendaftaranController Pendaftaran
+$ php artisan module:make-model Daftar Pendaftaran --migration
+$ php artisan module:make-factory Daftar Pendaftaran
+$ php artisan module:make-request DaftarRequest Pendaftaran
+$ php artisan module:migrate Pendaftaran</code></pre>
+                <p class="guna"><b>Kegunaan:</b> tiap perintah menaruh file langsung di dalam folder modul (bukan <i>app/</i> global). <i>--migration</i> membuat migration, <i>make-factory</i> membuat factory, <i>module:migrate</i> menjalankan migration modul.</p>
+                <pre class="snip"><code><span class="c">// Modules/Pendaftaran/routes/web.php</span>
+Route::middleware(['auth','role:admin,user'])-&gt;group(function () {
+    Route::get('pendaftaran', [PendaftaranController::class,'index'])
+        -&gt;name('pendaftaran.index');
+    Route::get('pendaftaran/data', [PendaftaranController::class,'getData']);
+});</code></pre>
+            </div>
+
+            <div class="item">
+                <h2><span class="n">5</span>Blade / React Starter Kit + Inertia.js</h2>
+                <pre><code>$ php artisan module:make-inertia-page index Pendaftaran --react
+$ npm run dev</code></pre>
+                <p class="guna"><b>Kegunaan:</b> <i>Inertia::render()</i> mengirim nama komponen + props (JSON) ke React tanpa reload. Halaman modul dipanggil dengan format <i>Modul::halaman</i>. Root Blade hanya memuat <i>@vite</i> dan <i>&lt;x-inertia::app /&gt;</i>.</p>
+                <pre class="snip"><code><span class="c">// Controller</span>
+return Inertia::render('Pendaftaran::index');
+
+<span class="c">// resources/js/app.tsx — resolusi halaman modul</span>
+const pages = import.meta.glob(['./pages/**/*.tsx',
+  '../../Modules/*/resources/js/pages/**/*.tsx']);
+const [module, page] = name.split('::');
+resolvePageComponent(`../../Modules/${module}/resources/js/pages/${page}.tsx`, pages);</code></pre>
+            </div>
+
+            <div class="item">
+                <h2><span class="n">6</span>Autentikasi: Register, Login, Logout</h2>
+                <pre><code>$ composer require laravel/fortify
+$ php artisan fortify:install
+$ php artisan migrate</code></pre>
+                <p class="guna"><b>Kegunaan:</b> Fortify menyediakan route &amp; logika auth siap pakai: <i>GET/POST /login</i>, <i>GET/POST /register</i>, <i>POST /logout</i>. Halaman React-nya ada di <i>resources/js/pages/auth/</i>. Registrasi mandiri selalu diberi role <i>user</i> agar tidak bisa memilih admin.</p>
+                <pre class="snip"><code><span class="c">// app/Actions/Fortify/CreateNewUser.php</span>
+return User::create([
+    'name' =&gt; $input['name'],
+    'email' =&gt; $input['email'],
+    'password' =&gt; $input['password'],
+    'role' =&gt; UserRole::User,   <span class="c">// anti privilege escalation</span>
+]);</code></pre>
+            </div>
+        </div>
+
+        <!-- KOLOM KANAN: 7-12 -->
+        <div class="col">
+            <div class="item">
+                <h2><span class="n">7</span>Pengelolaan Role &amp; Database Seeder</h2>
+                <pre><code>$ php artisan make:migration add_role_to_users_table --table=users
+$ php artisan make:enum Enums/UserRole --string
+$ php artisan db:seed
+$ php artisan migrate:fresh --seed</code></pre>
+                <p class="guna"><b>Kegunaan:</b> migration menambah kolom <i>role</i>; enum membatasi nilai yang sah (<i>admin</i>/<i>user</i>); seeder mengisi akun awal; <i>migrate:fresh --seed</i> membangun ulang database + data contoh.</p>
+                <pre class="snip"><code><span class="c">// database/seeders/DatabaseSeeder.php</span>
+User::factory()-&gt;admin()-&gt;create([
+    'name' =&gt; 'Administrator',
+    'email' =&gt; 'admin@example.com',
+    'password' =&gt; 'password',
+]);
+User::factory()-&gt;create(['email' =&gt; 'user@example.com']);</code></pre>
+            </div>
+
+            <div class="item">
+                <h2><span class="n">8</span>Dashboard Berdasarkan Role Pengguna</h2>
+                <pre><code>$ php artisan make:controller DashboardController --invokable</code></pre>
+                <p class="guna"><b>Kegunaan:</b> satu controller membaca user yang login, lalu hanya mengirim data yang boleh dilihat. Admin melihat jumlah user; user biasa tidak. Di React, kartu menu admin dirender kondisional.</p>
+                <pre class="snip"><code><span class="c">// DashboardController</span>
+'totalPendaftar' =&gt; Daftar::count(),
+'totalUsers' =&gt; $request-&gt;user()-&gt;isAdmin() ? User::count() : null,
+
+<span class="c">// dashboard.tsx</span>
+{isAdmin &amp;&amp; totalUsers !== null &amp;&amp; (
+    &lt;Link href="/admin/users"&gt;{totalUsers} user&lt;/Link&gt;
+)}</code></pre>
+            </div>
+
+            <div class="item">
+                <h2><span class="n">9</span>Middleware &amp; Pembatasan Hak Akses</h2>
+                <pre><code>$ php artisan make:middleware EnsureUserHasRole</code></pre>
+                <p class="guna"><b>Kegunaan:</b> middleware memeriksa role <b>sebelum</b> controller dijalankan. Alias <i>role</i> didaftarkan di <i>bootstrap/app.php</i>, lalu dipakai <i>role:admin</i> atau <i>role:admin,user</i>. Jika gagal → <i>abort(403)</i>.</p>
+                <pre class="snip"><code><span class="c">// bootstrap/app.php</span>
+$middleware-&gt;alias(['role' =&gt; EnsureUserHasRole::class]);
+
+<span class="c">// EnsureUserHasRole</span>
+if ($user === null || ! $user-&gt;hasRole(...$roles)) {
+    abort(403, 'Anda tidak memiliki hak akses.');
+}
+return $next($request);</code></pre>
+            </div>
+
+            <div class="item">
+                <h2><span class="n">10</span>Proteksi Route &amp; Penanganan Error 403</h2>
+                <pre><code>$ php artisan route:list --path=admin
+$ php artisan route:list --path=pendaftaran</code></pre>
+                <p class="guna"><b>Kegunaan:</b> route dikelompokkan dengan middleware <i>auth</i> (wajib login) dan <i>role</i> (batasi role). User biasa yang membuka <i>/admin/users</i> mendapat <b>403 Forbidden</b>, bukan 404/500. Pengujian otomatis memakai <i>assertForbidden()</i>.</p>
+                <pre class="snip"><code><span class="c">// Modules/UserManagement/routes/web.php</span>
+Route::middleware(['auth','role:admin'])
+    -&gt;prefix('admin')-&gt;name('admin.')
+    -&gt;group(function () {
+        Route::resource('users', UserManagementController::class)
+            -&gt;except('show');
+    });
+
+<span class="c">// tests/Feature/UserManagementTest.php</span>
+-&gt;get('/admin/users')-&gt;assertForbidden();</code></pre>
+            </div>
+
+            <div class="item">
+                <h2><span class="n">11</span>Model, Migration &amp; Relasi Eloquent ORM</h2>
+                <pre><code>$ php artisan module:make-model Daftar Pendaftaran -m -f
+$ php artisan module:migrate Pendaftaran</code></pre>
+                <p class="guna"><b>Kegunaan:</b> migration mendefinisikan struktur tabel; model menjadi jembatan tabel ↔ objek PHP. <i>$fillable</i> mengizinkan mass-assignment, <i>$casts</i> mengubah tipe otomatis, accessor <i>berkas_url</i> membentuk URL file.</p>
+                <pre class="snip"><code><span class="c">// migration daftars</span>
+$table-&gt;string('nama');
+$table-&gt;string('email')-&gt;unique();
+$table-&gt;string('no_hp', 20);
+
+<span class="c">// Model Daftar</span>
+protected $fillable = ['nama','email','no_hp','berkas'];
+protected function berkasUrl(): Attribute {
+    return Attribute::get(fn () =&gt; $this-&gt;berkas
+        ? asset('storage/'.$this-&gt;berkas) : null);
+}</code></pre>
+            </div>
+
+            <div class="item">
+                <h2><span class="n">12</span>CRUD Modul Utama (Pendaftaran)</h2>
+                <pre><code>$ php artisan module:make-controller PendaftaranController Pendaftaran
+$ php artisan route:list --path=pendaftaran</code></pre>
+                <p class="guna"><b>Kegunaan:</b> satu controller menangani Create (<i>store</i>), Read (<i>getData</i>), Update (<i>update</i>), Delete (<i>destroy</i>). Route model binding otomatis mengubah <i>{daftar}</i> menjadi objek <i>Daftar</i>; data tidak ditemukan → 404.</p>
+                <pre class="snip"><code>public function store(DaftarRequest $request): JsonResponse {
+    $data = $request-&gt;safe()-&gt;except('berkas');
+    $data['berkas'] = $request-&gt;file('berkas')-&gt;store('berkas_pendaftaran','public');
+    Daftar::create($data);
+    return response()-&gt;json(['success' =&gt; 'Data berhasil disimpan.']);
+}
+public function destroy(Daftar $daftar): JsonResponse {
+    $daftar-&gt;delete();
+    return response()-&gt;json(['success' =&gt; 'Data berhasil dihapus.']);
+}</code></pre>
+            </div>
+
+            <div class="note">
+                <b>Catatan jalur:</b> proyek ini memakai <b>Jalur B</b> — React + Inertia + <i>fetch()</i> (bukan jQuery). Modul utama = <b>Pendaftaran</b>, modul kedua = <b>UserManagement</b>. Relasi FK <i>user_id</i> belum dibuat di repo; pola relasinya ada di halaman 2 no. 14.
+            </div>
+        </div>
+    </div>
+
+    <div class="foot"><span>Rangkuman Asesmen 2 Praktikum PABW — Jalur B</span><span>Halaman 1 dari 2</span></div>
+</div>
+
+<!-- ============================ HALAMAN 2 ============================ -->
+<div class="page">
+    <div class="masthead">
+        <div>
+            <h1 style="font-size:10.5pt">LANJUTAN — IMPLEMENTASI FITUR &amp; PENGUJIAN</h1>
+            <p class="sub">Search/Pagination &middot; CRUD modul kedua &middot; AJAX &amp; FormData &middot; Storage &middot; Layout &middot; Validasi &middot; Tailwind &middot; Dark Mode &middot; Testing</p>
+        </div>
+        <div class="badge"><b>JALUR B</b><br>React &middot; Inertia &middot; Fetch</div>
+    </div>
+
+    <div class="cols">
+        <!-- KOLOM KIRI: 13-18 -->
+        <div class="col">
+            <div class="item">
+                <h2><span class="n">13</span>Fitur Pencarian (Search) &amp; Pagination</h2>
+                <p class="guna"><b>Kegunaan:</b> pencarian <b>server-side</b> memakai <i>LIKE</i> + <i>paginate(10)</i> agar data besar tetap ringan; <i>withQueryString()</i> mempertahankan kata kunci saat pindah halaman. Pada Pendaftaran, pencarian dilakukan <b>client-side</b> dengan <i>useMemo</i> tanpa request baru.</p>
+                <pre class="snip"><code><span class="c">// UserManagementController — server-side</span>
+-&gt;when($search !== '', fn (Builder $q) =&gt; $q-&gt;where(
+    fn (Builder $q) =&gt; $q-&gt;where('name','like',"%$search%")
+        -&gt;orWhere('email','like',"%$search%")))
+-&gt;orderBy('name')-&gt;paginate(10)-&gt;withQueryString();
+
+<span class="c">// index.tsx — filter tanpa reload penuh</span>
+router.get('/admin/users', { ...filters, search },
+    { preserveState: true, replace: true });</code></pre>
+            </div>
+
+            <div class="item">
+                <h2><span class="n">14</span>CRUD Modul Kedua (UserManagement)</h2>
+                <pre><code>$ php artisan module:make-controller UserManagementController UserManagement
+$ php artisan module:make-request StoreUserRequest UserManagement
+$ php artisan module:make-request UpdateUserRequest UserManagement</code></pre>
+                <p class="guna"><b>Kegunaan:</b> <i>Route::resource</i> membuat 7 route CRUD sekaligus; <i>except('show')</i> tidak membuat detail karena tidak dipakai. Create/Update memakai Form Request berbeda (password wajib saat tambah, opsional saat edit).</p>
+                <pre class="snip"><code>Route::resource('users', UserManagementController::class)-&gt;except('show');
+
+<span class="c">// relasi 1 user → banyak pendaftaran (pola)</span>
+<span class="c">// User.php   :</span> hasMany(Daftar::class)
+<span class="c">// Daftar.php :</span> belongsTo(User::class)
+<span class="c">// migration  :</span> $table-&gt;foreignId('user_id')-&gt;constrained();</code></pre>
+            </div>
+
+            <div class="item">
+                <h2><span class="n">15</span>AJAX dengan JavaScript fetch()</h2>
+                <p class="guna"><b>Kegunaan:</b> <i>fetch()</i> mengirim request di latar belakang sehingga halaman tidak reload. Header <i>Accept: application/json</i> membuat Laravel membalas JSON; <i>X-XSRF-TOKEN</i> dari cookie mencegah error <b>419</b>; <i>credentials: same-origin</i> mengirim cookie session.</p>
+                <pre class="snip"><code><span class="c">// resources/js/lib/http.ts</span>
+const res = await fetch(url, {
+    method, body, credentials: 'same-origin',
+    headers: { Accept: 'application/json',
+        'X-Requested-With': 'XMLHttpRequest',
+        'X-XSRF-TOKEN': getXsrfToken() },
+});
+if (!res.ok) throw new HttpError(res.status, await res.json());
+return await res.json();
+
+<span class="c">// dipanggil saat halaman dibuka</span>
+useEffect(() =&gt; { loadData(); }, []);</code></pre>
+            </div>
+
+            <div class="item">
+                <h2><span class="n">16</span>FormData &amp; Respons JSON Tanpa Refresh</h2>
+                <p class="guna"><b>Kegunaan:</b> <i>FormData</i> mendukung teks + file sekaligus. Karena HTML form hanya mengenal GET/POST, update dikirim POST dengan <i>_method=PUT</i> (method spoofing). Respons JSON dipakai untuk menampilkan notifikasi lalu memuat ulang tabel via AJAX.</p>
+                <pre class="snip"><code>const formData = new FormData();
+Object.entries(form).forEach(([k, v]) =&gt; formData.append(k, v));
+if (file) formData.append('berkas', file);
+if (editing) formData.append('_method', 'PUT');
+
+const result = await http(editing ? urls.update(id) : urls.store,
+    { method: 'POST', body: formData });
+setMessage({ type: 'success', text: result.success });
+await loadData();   <span class="c">// tabel diperbarui tanpa reload</span>
+<span class="c">// Controller:</span> return response()-&gt;json(['success' =&gt; 'Data tersimpan.']);</code></pre>
+            </div>
+
+            <div class="item">
+                <h2><span class="n">17</span>Upload &amp; Pengelolaan File (Laravel Storage)</h2>
+                <pre><code>$ php artisan storage:link</code></pre>
+                <p class="guna"><b>Kegunaan:</b> <i>storage:link</i> membuat symlink <i>public/storage</i> → <i>storage/app/public</i> agar file bisa diakses browser. File disimpan dengan nama acak di disk <i>public</i>; nama asli dicatat di kolom <i>nama_berkas</i>; file lama dihapus saat diganti/dihapus.</p>
+                <pre class="snip"><code>$file = $request-&gt;file('berkas');
+$data['berkas'] = $file-&gt;store('berkas_pendaftaran','public');
+$data['nama_berkas'] = $file-&gt;getClientOriginalName();
+Storage::disk('public')-&gt;delete($daftar-&gt;berkas); <span class="c">// ganti/hapus</span>
+asset('storage/'.$this-&gt;berkas)                  <span class="c">// URL publik</span></code></pre>
+            </div>
+
+            <div class="item">
+                <h2><span class="n">18</span>Layout Utama, Navbar &amp; Navigasi Antarmodul</h2>
+                <p class="guna"><b>Kegunaan:</b> <i>AppLayout</i> membungkus semua halaman (sidebar + header + breadcrumb) sehingga tampilan konsisten. Menu disusun dari array <i>mainNavItems</i>; menu <b>Kelola User</b> hanya muncul untuk admin. Ini lapisan UI — keamanan tetap dijaga middleware di server.</p>
+                <pre class="snip"><code><span class="c">// app-sidebar.tsx</span>
+const mainNavItems: NavItem[] = [
+    { title: 'Dashboard', href: '/dashboard', icon: LayoutGrid },
+    { title: 'Pendaftaran', href: '/pendaftaran', icon: ClipboardList },
+    ...(isAdmin ? [{ title: 'Kelola User', href: '/admin/users',
+        icon: Users }] : []),
+];
+<span class="c">// halaman modul: &lt;AppLayout breadcrumbs={...}&gt; ... &lt;/AppLayout&gt;</span></code></pre>
+            </div>
+
+            <div class="quick">
+                <b>Perintah cepat:</b>
+                <code>migrate:fresh --seed</code> · <code>module:list</code> · <code>route:list</code> ·
+                <code>storage:link</code> · <code>npm run build</code> · <code>pint --dirty</code>
+            </div>
+        </div>
+
+        <!-- KOLOM KANAN: 19-24 -->
+        <div class="col">
+            <div class="item">
+                <h2><span class="n">19</span>Validasi Form dengan Laravel Form Request</h2>
+                <pre><code>$ php artisan module:make-request DaftarRequest Pendaftaran</code></pre>
+                <p class="guna"><b>Kegunaan:</b> aturan validasi dipisah dari controller agar rapi dan dapat dipakai ulang. <i>authorize()</i> menentukan boleh/tidaknya request; <i>messages()</i> memberi pesan berbahasa Indonesia; controller cukup menulis <i>DaftarRequest $request</i>.</p>
+                <pre class="snip"><code>public function rules(): array {
+    $daftar = $this-&gt;route('daftar');
+    return [
+        'nama' =&gt; ['required','string','max:255'],
+        'email' =&gt; ['required','email',
+            Rule::unique('daftars','email')-&gt;ignore($daftar?->id)],
+        'no_hp' =&gt; ['required','regex:/^[0-9+]{8,20}$/'],
+        'berkas' =&gt; [$daftar ? 'nullable' : 'required', 'file',
+            'mimes:jpg,jpeg,png,pdf', 'max:2048'],
+    ];
+}</code></pre>
+            </div>
+
+            <div class="item">
+                <h2><span class="n">20</span>Pesan Validasi, Notifikasi &amp; Konfirmasi Hapus</h2>
+                <p class="guna"><b>Kegunaan:</b> saat validasi gagal Laravel membalas <b>422</b> berisi <i>errors</i>; React memetakannya ke tiap input lewat <i>InputError</i>. Notifikasi sukses tampil 4 detik lalu hilang. Hapus data selalu lewat dialog konfirmasi agar tidak terklik tak sengaja.</p>
+                <pre class="snip"><code>if (error instanceof HttpError &amp;&amp; error.status === 422) {
+    setErrors(error.data?.errors ?? {});
+}
+
+<span class="c">// AlertMessage — auto close 4 detik</span>
+const timer = setTimeout(onClose, 4000);
+
+<span class="c">// ConfirmDialog</span>
+&lt;ConfirmDialog open={deleting !== null}
+    description={`Yakin menghapus ${deleting?.nama}?`}
+    processing={processingDelete} onConfirm={handleDelete} /&gt;</code></pre>
+            </div>
+
+            <div class="item">
+                <h2><span class="n">21</span>Tailwind CSS untuk Desain Antarmuka</h2>
+                <pre><code>$ npm install tailwindcss @tailwindcss/vite
+$ npm run build        <span class="c"># produksi</span>
+$ npm run dev          <span class="c"># development</span></code></pre>
+                <p class="guna"><b>Kegunaan:</b> Tailwind v4 dipasang lewat plugin Vite; <i>@import 'tailwindcss'</i> di <i>app.css</i>. Utility class mempercepat styling dan otomatis mendukung varian <i>dark:</i>. <i>@source</i> mendaftarkan folder modul agar class di dalam modul ikut ter-generate.</p>
+                <pre class="snip"><code><span class="c">/* resources/css/app.css */</span>
+@import 'tailwindcss';
+@source '../../Modules/*/resources/js/**/*.{ts,tsx}';
+@custom-variant dark (&amp;:is(.dark *));
+
+<span class="c">&lt;!-- contoh pemakaian --&gt;</span>
+&lt;div className="rounded-xl border p-6
+     bg-white dark:bg-neutral-900"&gt;</code></pre>
+            </div>
+
+            <div class="item">
+                <h2><span class="n">22</span>Antarmuka Responsif &amp; User-Friendly</h2>
+                <p class="guna"><b>Kegunaan:</b> layout menyesuaikan lebar layar: kartu dashboard 1 kolom di HP, 2 kolom di desktop (<i>md:grid-cols-2</i>); tabel bisa digeser horizontal (<i>overflow-x-auto</i>); sidebar mengecil jadi ikon dan berubah menjadi <i>Sheet</i> di mobile; tombol aksi diberi ikon + label yang jelas.</p>
+                <pre class="snip"><code>&lt;div className="grid gap-4 md:grid-cols-2"&gt; ... &lt;/div&gt;
+&lt;div className="overflow-x-auto rounded-xl border"&gt;
+    &lt;table className="w-full text-sm"&gt; ... &lt;/table&gt;
+&lt;/div&gt;
+&lt;Sidebar collapsible="icon" variant="inset"&gt;
+&lt;div className="lg:hidden"&gt; &lt;Sheet&gt; ... &lt;/Sheet&gt; &lt;/div&gt;</code></pre>
+            </div>
+
+            <div class="item">
+                <h2><span class="n">23</span>Dark Mode &amp; Indikator Loading</h2>
+                <p class="guna"><b>Kegunaan:</b> tema disimpan di <i>localStorage</i> + cookie agar tidak berkedip saat halaman dimuat; class <i>dark</i> dipasang di <i>&lt;html&gt;</i>. Indikator loading memberi umpan balik: spinner saat memuat data, tombol nonaktif + teks “Menyimpan...” saat proses simpan.</p>
+                <pre class="snip"><code>document.documentElement.classList.toggle('dark', isDark);
+document.documentElement.style.colorScheme = isDark ? 'dark' : 'light';
+initializeTheme();   <span class="c">// dipanggil di app.tsx</span>
+
+{loading &amp;&amp; &lt;LoaderCircle className="animate-spin" /&gt;}
+&lt;Button type="submit" disabled={saving}&gt;
+    {saving &amp;&amp; &lt;LoaderCircle className="animate-spin" /&gt;}
+    {saving ? 'Menyimpan...' : 'Simpan'}
+&lt;/Button&gt;</code></pre>
+            </div>
+
+            <div class="item">
+                <h2><span class="n">24</span>Pengujian Fungsional &amp; Developer Tools</h2>
+                <pre><code>$ php artisan test --compact
+$ vendor/bin/pest tests/Feature/PendaftaranTest.php
+$ vendor/bin/pest --filter=admin
+$ npm run dev   <span class="c"># lalu buka DevTools (F12)</span></code></pre>
+                <p class="guna"><b>Kegunaan:</b> Pest menguji route, hak akses, validasi, upload, dan JSON. Di DevTools: tab <b>Network → Fetch/XHR</b> untuk melihat request AJAX (status 200/422), tab <b>Application → Cookies</b> untuk memastikan <i>XSRF-TOKEN</i> ada, dan <b>Console</b> untuk error JavaScript.</p>
+                <pre class="snip"><code>test('user cannot open the user management page', function () {
+    $this-&gt;actingAs(User::factory()-&gt;create())
+        -&gt;get('/admin/users')-&gt;assertForbidden();
+});
+
+test('store returns 422 when the form is empty', function () {
+    $this-&gt;postJson('/pendaftaran', [])
+        -&gt;assertStatus(422)
+        -&gt;assertJsonValidationErrors(['nama','email','berkas']);
+});</code></pre>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="foot"><span>Rangkuman Asesmen 2 Praktikum PABW — Jalur B</span><span>Halaman 2 dari 2</span></div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Rangkuman Asesmen 2 Praktikum PABW — Jalur A</title>
+<style>
+    @page { size: A4 portrait; margin: 0; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+        font-family: "Segoe UI", Arial, sans-serif;
+        font-size: 6.65pt;
+        line-height: 1.16;
+        color: #16202e;
+        background: #fff;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+    .page {
+        width: 210mm;
+        height: 297mm;
+        padding: 6mm 7.5mm 5.5mm;
+        overflow: hidden;
+        page-break-after: always;
+        position: relative;
+    }
+    .page:last-child { page-break-after: auto; }
+    .page1 { font-size: 6.45pt; }
+    .page1 pre { font-size: 5.5pt; }
+    .page2 { font-size: 6.42pt; }
+    .page2 pre { font-size: 5.52pt; }
+    .masthead {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        border-bottom: 2.2pt solid #065f46;
+        padding-bottom: 1.2mm;
+        margin-bottom: 1.4mm;
+    }
+    .masthead h1 {
+        margin: 0;
+        font-size: 12.4pt;
+        letter-spacing: .2pt;
+        color: #065f46;
+        line-height: 1.05;
+    }
+    .masthead .sub {
+        margin: .6mm 0 0;
+        font-size: 7.1pt;
+        color: #475569;
+    }
+    .masthead .badge {
+        text-align: right;
+        font-size: 6.6pt;
+        color: #334155;
+        line-height: 1.35;
+    }
+    .masthead .badge b {
+        display: inline-block;
+        background: #065f46;
+        color: #fff;
+        padding: .6mm 2mm;
+        border-radius: 1mm;
+        font-size: 6.65pt;
+        letter-spacing: .4pt;
+    }
+    .idline {
+        display: flex;
+        gap: 5mm;
+        font-size: 6.7pt;
+        color: #64748b;
+        margin: -.4mm 0 1.2mm;
+    }
+    .idline span { border-bottom: .4pt dotted #94a3b8; flex: 0 0 auto; padding-right: 14mm; }
+    .flow {
+        background: #ecfdf5;
+        border: .5pt solid #a7f3d0;
+        color: #065f46;
+        border-radius: 1mm;
+        padding: .8mm 1.4mm;
+        font-size: 6.3pt;
+        margin-bottom: 1.4mm;
+    }
+    .cols {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 5.2mm;
+        height: 100%;
+    }
+    .col { display: flex; flex-direction: column; }
+    .item {
+        break-inside: avoid;
+        padding: 0 0 1.1mm;
+        margin-bottom: 1.1mm;
+        border-bottom: .45pt solid #e2e8f0;
+    }
+    .item:last-child { border-bottom: none; }
+    h2 {
+        margin: 0 0 .5mm;
+        font-size: 7.3pt;
+        line-height: 1.1;
+        color: #0f172a;
+    }
+    h2 .n {
+        display: inline-block;
+        min-width: 4.2mm;
+        height: 4.2mm;
+        line-height: 4.2mm;
+        text-align: center;
+        background: #065f46;
+        color: #fff;
+        border-radius: .8mm;
+        font-size: 6.5pt;
+        margin-right: 1.2mm;
+        vertical-align: .25mm;
+    }
+    pre {
+        margin: .4mm 0 .5mm;
+        padding: .7mm 1.2mm;
+        background: #f1f5f9;
+        border-left: 1.6pt solid #64748b;
+        border-radius: .6mm;
+        font-family: Consolas, "Courier New", monospace;
+        font-size: 5.7pt;
+        line-height: 1.19;
+        white-space: pre-wrap;
+        word-break: break-word;
+        color: #0f172a;
+    }
+    pre.snip { background: #f8fafc; border-left-color: #065f46; }
+    pre .c { color: #64748b; }
+    .guna { margin: .3mm 0 .35mm; text-align: justify; }
+    .guna b { color: #065f46; }
+    .note {
+        margin-top: auto;
+        border: .6pt dashed #b45309;
+        background: #fffbeb;
+        color: #78350f;
+        padding: 1mm 1.4mm;
+        border-radius: 1mm;
+        font-size: 6.15pt;
+        line-height: 1.22;
+    }
+    .note b { color: #92400e; }
+    .foot {
+        position: absolute;
+        bottom: 2.2mm;
+        left: 8mm;
+        right: 8mm;
+        display: flex;
+        justify-content: space-between;
+        font-size: 6.2pt;
+        color: #94a3b8;
+        border-top: .4pt solid #e2e8f0;
+        padding-top: .8mm;
+    }
+    .quick {
+        margin-top: 2mm;
+        background: #ecfdf5;
+        border: .5pt solid #a7f3d0;
+        border-radius: 1mm;
+        padding: 1.1mm 1.5mm;
+        font-size: 6.15pt;
+        line-height: 1.28;
+    }
+    .quick b { color: #065f46; }
+    .quick code { font-family: Consolas, monospace; font-size: 5.9pt; }
+    .file {
+        display: inline-block;
+        background: #e0f2fe;
+        color: #075985;
+        border: .4pt solid #7dd3fc;
+        border-radius: .6mm;
+        padding: 0 .8mm;
+        font-family: Consolas, "Courier New", monospace;
+        font-size: 5.4pt;
+        line-height: 1.2;
+        margin-right: .8mm;
+        vertical-align: .2mm;
+        white-space: nowrap;
+    }
+    .legend {
+        font-size: 6.05pt;
+        color: #334155;
+        background: #f8fafc;
+        border: .4pt solid #cbd5e1;
+        border-radius: .8mm;
+        padding: .6mm 1.2mm;
+        margin-bottom: 1.2mm;
+        line-height: 1.25;
+    }
+    .legend code { font-family: Consolas, monospace; font-size: 5.65pt; color: #075985; }
+</style>
+</head>
+<body>
+
+<!-- ============================ HALAMAN 1 ============================ -->
+<div class="page page1">
+    <div class="masthead">
+        <div>
+            <h1>RANGKUMAN ASESMEN 2 — PRAKTIKUM PABW</h1>
+            <p class="sub">Jalur A &middot; Laravel 13 HMVC (nwidart) + Blade + Bootstrap 5 + jQuery AJAX</p>
+        </div>
+        <div class="badge"><b>JALUR A</b><br>HMVC &middot; Blade &middot; Bootstrap &middot; jQuery</div>
+    </div>
+    <div class="idline">
+        <span>Nama: ______________________</span>
+        <span>NIM: ________________</span>
+        <span>Kelas: __________</span>
+    </div>
+    <div class="flow"><b>Urutan kerja:</b> setup proyek → database → auth &amp; role → HMVC → migration/relasi → layout → CRUD → search/pagination → AJAX &amp; upload → dark mode → pengujian.</div>
+    <div class="legend"><b>Label file:</b> <code>[P]</code>=Modules/Pendaftaran &middot; <code>[U]</code>=Modules/UserManagement &middot; <code>[G]</code>=resources/views &middot; <code>[A]</code>=app &middot; <code>[T]</code>=tests/Feature</div>
+
+    <div class="cols">
+        <!-- KOLOM KIRI: 1-6 -->
+        <div class="col">
+            <div class="item">
+                <h2><span class="n">1</span>Pembuatan &amp; Konfigurasi Proyek Laravel</h2>
+                <pre><code>$ laravel new praktikum_hmvc
+<span class="c"># pilih: No starter kit, Pest, MySQL</span>
+$ cd praktikum_hmvc
+$ composer install
+$ php artisan key:generate</code></pre>
+                <p class="guna"><span class="file">[Terminal] root proyek</span> <b>Kegunaan:</b> <i>laravel new</i> membuat skeleton Laravel; <i>composer install</i> memasang dependensi PHP; <i>key:generate</i> mengisi APP_KEY untuk enkripsi session/cookie. Untuk Jalur A tidak perlu React/Inertia.</p>
+                <pre class="snip"><code><span class="c"># alternatif tanpa installer</span>
+$ composer create-project laravel/laravel praktikum_hmvc
+$ php artisan serve   <span class="c"># http://127.0.0.1:8000</span></code></pre>
+            </div>
+
+            <div class="item">
+                <h2><span class="n">2</span>Konfigurasi Database MySQL &amp; File .env</h2>
+                <pre><code><span class="c">-- phpMyAdmin / Laragon</span>
+CREATE DATABASE hmvc_blade;
+$ php artisan config:clear
+$ php artisan migrate</code></pre>
+                <p class="guna"><span class="file">[.env] root proyek</span> <b>Kegunaan:</b> <i>config:clear</i> menghapus cache config agar perubahan <i>.env</i> langsung terbaca; <i>migrate</i> membuat tabel <i>users</i>, <i>cache</i>, <i>jobs</i>, dan <i>sessions</i>.</p>
+                <pre class="snip"><code>DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=hmvc_blade
+DB_USERNAME=root
+DB_PASSWORD=</code></pre>
+            </div>
+
+            <div class="item">
+                <h2><span class="n">3</span>Arsitektur HMVC (nwidart/laravel-modules)</h2>
+                <pre><code>$ composer require nwidart/laravel-modules
+$ php artisan vendor:publish --provider="Nwidart\Modules\LaravelModulesServiceProvider"
+$ php artisan module:make Pendaftaran UserManagement
+$ php artisan module:list</code></pre>
+                <p class="guna"><span class="file">[Root] modules_statuses.json</span> <b>Kegunaan:</b> <i>vendor:publish</i> menerbitkan file konfigurasi modul; <i>module:make</i> membuat dua modul sekaligus; <i>module:list</i> memastikan modul aktif. Tiap modul punya Controller, Model, Route, View, Migration, dan Provider sendiri.</p>
+                <pre class="snip"><code><span class="c">// modules_statuses.json</span>
+{ "Pendaftaran": true, "UserManagement": true }
+
+<span class="c">// composer.json — autoload PSR-4 per modul</span>
+"Modules\\Pendaftaran\\": "Modules/Pendaftaran/app/"</code></pre>
+            </div>
+
+            <div class="item">
+                <h2><span class="n">4</span>Pembuatan Modul: Model, View, Controller, Route</h2>
+                <pre><code>$ php artisan module:make-controller PendaftaranController Pendaftaran
+$ php artisan module:make-model Daftar Pendaftaran --migration
+$ php artisan module:make-request DaftarRequest Pendaftaran
+$ php artisan module:make-view index Pendaftaran
+$ php artisan module:migrate Pendaftaran</code></pre>
+                <p class="guna"><span class="file">[P] routes/web.php</span> <b>Kegunaan:</b> semua file masuk ke folder modul, bukan <i>app/</i> global. View dipanggil dengan namespace <i>pendaftaran::index</i>. <i>module:migrate</i> menjalankan migration milik modul.</p>
+                <pre class="snip"><code><span class="c">// Modules/Pendaftaran/routes/web.php</span>
+Route::middleware(['auth','role:admin,user'])-&gt;group(function () {
+    Route::resource('pendaftaran', PendaftaranController::class);
+});
+
+<span class="c">// Controller</span>
+return view('pendaftaran::index', compact('data'));</code></pre>
+            </div>
+
+            <div class="item">
+                <h2><span class="n">5</span>Implementasi Blade (Layout &amp; View)</h2>
+                <p class="guna"><span class="file">[G] layouts/app.blade.php</span> <b>Kegunaan:</b> Blade adalah template engine server-side. <i>@extends</i> memakai layout induk, <i>@section/@yield</i> mengisi konten, <i>{{ }}</i> otomatis meng-escape HTML (anti-XSS), dan <i>@csrf</i> menyisipkan token keamanan form.</p>
+                <pre class="snip"><code><span class="c">{{-- resources/views/layouts/app.blade.php --}}</span>
+&lt;html&gt;&lt;body&gt;
+  @include('layouts.navbar')
+  &lt;main class="container py-4"&gt;@yield('content')&lt;/main&gt;
+&lt;/body&gt;&lt;/html&gt;
+
+<span class="c">{{-- Modules/Pendaftaran/resources/views/index.blade.php --}}</span>
+@extends('layouts.app')
+@section('title', 'Pendaftaran')
+@section('content')
+  &lt;h1&gt;{{ $judul }}&lt;/h1&gt;
+  @include('pendaftaran::partials.table')
+@endsection</code></pre>
+            </div>
+
+            <div class="item">
+                <h2><span class="n">6</span>Autentikasi: Register, Login, Logout</h2>
+                <pre><code>$ composer require laravel/fortify
+$ php artisan fortify:install</code></pre>
+                <p class="guna"><span class="file">[G] auth/login.blade.php</span> <b>Kegunaan:</b> Fortify menyediakan route &amp; logika auth: <i>GET/POST /login</i>, <i>GET/POST /register</i>, <i>POST /logout</i>. Di <i>config/fortify.php</i> aktifkan hanya <i>Features::registration()</i>. Buat view <i>auth/login.blade.php</i> dan <i>auth/register.blade.php</i>.</p>
+                <pre class="snip"><code>&lt;form method="POST" action="{{ route('login') }}"&gt;
+    @csrf
+    &lt;input name="email" value="{{ old('email') }}" class="form-control"&gt;
+    &lt;input type="password" name="password" class="form-control"&gt;
+    &lt;button class="btn btn-success"&gt;Login&lt;/button&gt;
+&lt;/form&gt;
+
+&lt;form method="POST" action="{{ route('logout') }}"&gt;@csrf
+    &lt;button class="btn btn-outline-danger btn-sm"&gt;Logout&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+            </div>
+        </div>
+
+        <!-- KOLOM KANAN: 7-12 -->
+        <div class="col">
+            <div class="item">
+                <h2><span class="n">7</span>Pengelolaan Role &amp; Database Seeder</h2>
+                <pre><code>$ php artisan make:migration add_role_to_users_table --table=users
+$ php artisan make:enum Enums/UserRole --string
+$ php artisan db:seed
+$ php artisan migrate:fresh --seed</code></pre>
+                <p class="guna"><span class="file">[A] DatabaseSeeder.php</span> <b>Kegunaan:</b> migration menambah kolom <i>role</i>; enum membatasi nilai sah (<i>admin</i>/<i>user</i>); seeder mengisi akun awal; <i>migrate:fresh --seed</i> membangun ulang database + data contoh.</p>
+                <pre class="snip"><code><span class="c">// database/seeders/DatabaseSeeder.php</span>
+User::create(['name'=&gt;'Administrator','email'=&gt;'admin@example.com',
+    'password'=&gt;Hash::make('password'), 'role'=&gt;UserRole::Admin]);
+User::create(['name'=&gt;'User','email'=&gt;'user@example.com',
+    'password'=&gt;Hash::make('password'), 'role'=&gt;UserRole::User]);</code></pre>
+            </div>
+
+            <div class="item">
+                <h2><span class="n">8</span>Dashboard Berdasarkan Role Pengguna</h2>
+                <pre><code>$ php artisan make:controller DashboardController --invokable</code></pre>
+                <p class="guna"><span class="file">[A] DashboardController.php</span> <b>Kegunaan:</b> controller mengirim data sesuai role yang login; Blade menampilkan kartu berbeda. Admin melihat total user &amp; seluruh pendaftar; user biasa hanya melihat data miliknya.</p>
+                <pre class="snip"><code><span class="c">// DashboardController</span>
+$totalPendaftar = Daftar::count();
+$totalUsers = auth()-&gt;user()-&gt;isAdmin() ? User::count() : null;
+return view('dashboard', compact('totalPendaftar','totalUsers'));
+
+<span class="c">{{-- dashboard.blade.php --}}</span>
+@if(auth()-&gt;user()-&gt;isAdmin())
+  &lt;div class="card"&gt;Total user: {{ $totalUsers }}&lt;/div&gt;
+@endif</code></pre>
+            </div>
+
+            <div class="item">
+                <h2><span class="n">9</span>Middleware &amp; Pembatasan Hak Akses</h2>
+                <pre><code>$ php artisan make:middleware EnsureUserHasRole</code></pre>
+                <p class="guna"><span class="file">[A] EnsureUserHasRole.php</span> <b>Kegunaan:</b> middleware memeriksa role <b>sebelum</b> controller dijalankan. Alias <i>role</i> didaftarkan di <i>bootstrap/app.php</i>, lalu dipakai <i>role:admin</i> atau <i>role:admin,user</i>. Jika gagal → <i>abort(403)</i>.</p>
+                <pre class="snip"><code><span class="c">// bootstrap/app.php</span>
+$middleware-&gt;alias(['role' =&gt; EnsureUserHasRole::class]);
+
+<span class="c">// EnsureUserHasRole</span>
+if (! $request-&gt;user() ||
+    ! in_array($request-&gt;user()-&gt;role-&gt;value, $roles, true)) {
+    abort(403, 'Anda tidak memiliki hak akses.');
+}
+return $next($request);</code></pre>
+            </div>
+
+            <div class="item">
+                <h2><span class="n">10</span>Proteksi Route &amp; Penanganan Error 403</h2>
+                <pre><code>$ php artisan route:list --path=admin
+$ php artisan route:list --path=pendaftaran</code></pre>
+                <p class="guna"><span class="file">[U] routes/web.php</span> <b>Kegunaan:</b> route dikelompokkan dengan middleware <i>auth</i> (wajib login) dan <i>role</i> (batasi role). User biasa yang membuka <i>/admin/users</i> mendapat <b>403 Forbidden</b>. Buat view <i>resources/views/errors/403.blade.php</i> agar tampilannya rapi.</p>
+                <pre class="snip"><code><span class="c">// Modules/UserManagement/routes/web.php</span>
+Route::middleware(['auth','role:admin'])
+    -&gt;prefix('admin')-&gt;name('admin.')
+    -&gt;group(function () {
+        Route::resource('users', UserManagementController::class)
+            -&gt;except('show');
+    });
+
+<span class="c">// tests/Feature/UserManagementTest.php</span>
+-&gt;get('/admin/users')-&gt;assertForbidden();</code></pre>
+            </div>
+
+            <div class="item">
+                <h2><span class="n">11</span>Model, Migration &amp; Relasi Eloquent ORM</h2>
+                <pre><code>$ php artisan module:make-model Daftar Pendaftaran --migration
+$ php artisan module:migrate Pendaftaran</code></pre>
+                <p class="guna"><span class="file">[P] create_daftars_table.php</span> <b>Kegunaan:</b> migration mendefinisikan tabel; model menjadi jembatan tabel ↔ objek PHP. <i>user_id</i> adalah foreign key ke <i>users</i>; <i>belongsTo</i> dan <i>hasMany</i> membentuk relasi one-to-many.</p>
+                <pre class="snip"><code><span class="c">// migration daftars</span>
+$table-&gt;foreignId('user_id')-&gt;constrained()-&gt;cascadeOnDelete();
+$table-&gt;string('nama'); $table-&gt;string('email')-&gt;unique();
+<span class="c">// Daftar:</span> belongsTo(User::class)  <span class="c">// User:</span> hasMany(Daftar::class)</code></pre>
+            </div>
+
+            <div class="item">
+                <h2><span class="n">12</span>CRUD Modul Utama (Pendaftaran)</h2>
+                <pre><code>$ php artisan module:make-controller PendaftaranController Pendaftaran
+$ php artisan route:list --path=pendaftaran</code></pre>
+                <p class="guna"><span class="file">[P] PendaftaranController.php</span> <b>Kegunaan:</b> satu controller menangani Create (<i>store</i>), Read (<i>index</i>), Update (<i>update</i>), Delete (<i>destroy</i>). <i>Route::resource</i> membuat 7 route sekaligus; route model binding mengubah <i>{pendaftaran}</i> menjadi objek <i>Daftar</i>.</p>
+                <pre class="snip"><code>public function index() {
+    $data = Daftar::with('user')-&gt;latest()-&gt;paginate(10);
+    return view('pendaftaran::index', compact('data'));
+}
+public function store(DaftarRequest $request) {
+    $data = $request-&gt;validated();
+    $data['user_id'] = auth()-&gt;id();
+    $data['berkas'] = $request-&gt;file('berkas')-&gt;store('berkas','public');
+    Daftar::create($data);
+    return response()-&gt;json(['success' =&gt; 'Data tersimpan.']);
+}</code></pre>
+            </div>
+
+            <div class="note">
+                <b>Inti Jalur A:</b> semua halaman dirender server (Blade), data diambil lewat controller, lalu create/update/delete dikirim dengan <b>jQuery AJAX</b> + <b>FormData</b> agar tabel berubah tanpa reload. Bootstrap 5 mengatur tampilan; jQuery hanya untuk AJAX.
+            </div>
+        </div>
+    </div>
+
+    <div class="foot"><span>Rangkuman Asesmen 2 Praktikum PABW — Jalur A</span><span>Halaman 1 dari 2</span></div>
+</div>
+
+<!-- ============================ HALAMAN 2 ============================ -->
+<div class="page page2">
+    <div class="masthead">
+        <div>
+            <h1 style="font-size:10.5pt">LANJUTAN — FITUR, AJAX &amp; PENGUJIAN</h1>
+            <p class="sub">Search/Pagination &middot; CRUD modul kedua &middot; jQuery AJAX &middot; FormData &middot; Storage &middot; Layout &middot; Validasi &middot; Bootstrap &middot; Dark Mode &middot; Testing</p>
+        </div>
+        <div class="badge"><b>JALUR A</b><br>Blade &middot; Bootstrap &middot; jQuery</div>
+    </div>
+
+    <div class="legend"><b>Label file:</b> <code>[P]</code>=Modules/Pendaftaran &middot; <code>[U]</code>=Modules/UserManagement &middot; <code>[G]</code>=resources/views &middot; <code>[A]</code>=app &middot; <code>[T]</code>=tests/Feature</div>
+
+    <div class="cols">
+        <!-- KOLOM KIRI: 13-18 -->
+        <div class="col">
+            <div class="item">
+                <h2><span class="n">13</span>Fitur Pencarian (Search) &amp; Pagination</h2>
+                <p class="guna"><span class="file">[P] Controller + index.blade.php</span> <b>Kegunaan:</b> pencarian <b>server-side</b> memakai <i>LIKE</i> + <i>paginate(10)</i> agar data besar tetap ringan; <i>withQueryString()</i> mempertahankan kata kunci saat pindah halaman. Blade menampilkan link halaman dengan <i>{{ $data->links() }}</i>.</p>
+                <pre class="snip"><code><span class="c">// Controller</span>
+$search = $request-&gt;string('search')-&gt;toString();
+$data = Daftar::with('user')
+    -&gt;when($search, fn ($q) =&gt; $q-&gt;where('nama','like',"%$search%")
+        -&gt;orWhere('asal_sekolah','like',"%$search%"))
+    -&gt;latest()-&gt;paginate(10)-&gt;withQueryString();
+
+<span class="c">{{-- index.blade.php --}}</span>
+&lt;form method="GET" class="d-flex gap-2"&gt;
+  &lt;input name="search" value="{{ $search }}" class="form-control"&gt;
+  &lt;button class="btn btn-success"&gt;Cari&lt;/button&gt;
+&lt;/form&gt;
+{{ $data-&gt;links() }}</code></pre>
+            </div>
+
+            <div class="item">
+                <h2><span class="n">14</span>CRUD Modul Kedua (UserManagement) Berelasi</h2>
+                <pre><code>$ php artisan module:make-controller UserManagementController UserManagement
+$ php artisan module:make-request StoreUserRequest UserManagement
+$ php artisan module:make-request UpdateUserRequest UserManagement</code></pre>
+                <p class="guna"><span class="file">[U] UserManagementController.php</span> <b>Kegunaan:</b> modul kedua mengelola tabel <i>users</i> yang berelasi ke <i>daftars.user_id</i>. <i>Route::resource</i> membuat CRUD sekaligus; <i>withCount('daftars')</i> menampilkan jumlah pendaftaran milik tiap user sebagai bukti relasi.</p>
+                <pre class="snip"><code>Route::resource('users', UserManagementController::class)-&gt;except('show');
+
+<span class="c">// UserManagementController</span>
+$users = User::withCount('daftars')-&gt;paginate(10);
+return view('usermanagement::index', compact('users'));
+<span class="c">{{-- Blade: {{ $user-&gt;daftars_count }} pendaftaran --}}</span></code></pre>
+            </div>
+
+            <div class="item">
+                <h2><span class="n">15</span>AJAX Menggunakan jQuery</h2>
+                <p class="guna"><span class="file">[G] layouts/app.blade.php</span> <b>Kegunaan:</b> jQuery <i>$.ajax</i> mengirim request di latar belakang sehingga halaman tidak reload. <i>$.ajaxSetup</i> memasang token CSRF ke semua request; <i>dataType:'json'</i> meminta respons JSON.</p>
+                <pre class="snip"><code><span class="c">// layout: meta csrf + jQuery CDN</span>
+&lt;meta name="csrf-token" content="{{ csrf_token() }}"&gt;
+&lt;script src="https://code.jquery.com/jquery-3.7.1.min.js"&gt;&lt;/script&gt;
+
+$.ajaxSetup({
+    headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+});
+
+$.ajax({
+    url: "{{ route('pendaftaran.data') }}",
+    type: 'GET', dataType: 'json',
+    success: function (res) { renderTable(res); }
+});</code></pre>
+            </div>
+
+            <div class="item">
+                <h2><span class="n">16</span>FormData &amp; Respons JSON Tanpa Refresh</h2>
+                <p class="guna"><span class="file">[P] index.blade.php (JS)</span> <b>Kegunaan:</b> <i>FormData</i> mendukung teks + file sekaligus. <i>processData:false</i> dan <i>contentType:false</i> wajib agar jQuery tidak mengubah FormData. Update dikirim POST + <i>_method=PUT</i> (method spoofing). Respons JSON dipakai untuk notifikasi lalu memuat ulang tabel.</p>
+                <pre class="snip"><code>let fd = new FormData(this);
+if (editing) fd.append('_method', 'PUT');
+
+$.ajax({
+    url: editing ? '/pendaftaran/' + id : '/pendaftaran',
+    type: 'POST', data: fd,
+    processData: false, contentType: false,
+    success: function (res) { Swal.fire('Berhasil', res.success, 'success');
+        loadData(); },   <span class="c">// tabel diperbarui tanpa reload</span>
+    error: function (xhr) { showErrors(xhr.responseJSON.errors); }
+});
+<span class="c">// Controller:</span> return response()-&gt;json(['success' =&gt; 'Data tersimpan.']);</code></pre>
+            </div>
+
+            <div class="item">
+                <h2><span class="n">17</span>Upload &amp; Pengelolaan File (Laravel Storage)</h2>
+                <pre><code>$ php artisan storage:link</code></pre>
+                <p class="guna"><span class="file">[P] PendaftaranController.php</span> <b>Kegunaan:</b> <i>storage:link</i> membuat symlink <i>public/storage</i> → <i>storage/app/public</i> agar file bisa diakses browser. File disimpan dengan nama acak di disk <i>public</i>; file lama dihapus saat diganti/dihapus.</p>
+                <pre class="snip"><code>$file = $request-&gt;file('berkas');
+$data['berkas'] = $file-&gt;store('berkas','public');
+$data['nama_berkas'] = $file-&gt;getClientOriginalName();
+Storage::disk('public')-&gt;delete($daftar-&gt;berkas); <span class="c">// hapus lama</span>
+<span class="c">{{-- Blade --}}</span>
+&lt;a href="{{ asset('storage/'.$item-&gt;berkas) }}"&gt;{{ $item-&gt;nama_berkas }}&lt;/a&gt;</code></pre>
+            </div>
+
+            <div class="item">
+                <h2><span class="n">18</span>Layout Utama, Navbar &amp; Navigasi Antarmodul</h2>
+                <p class="guna"><span class="file">[G] layouts/navbar.blade.php</span> <b>Kegunaan:</b> satu layout dipakai semua halaman (navbar + container + footer) sehingga tampilan konsisten. Menu disusun dengan <i>route()</i>; menu <b>Kelola User</b> hanya muncul untuk admin. Ini lapisan UI — keamanan tetap dijaga middleware.</p>
+                <pre class="snip"><code>&lt;nav class="navbar navbar-expand-lg bg-body-tertiary"&gt;&lt;div class="container"&gt;
+  &lt;a class="navbar-brand" href="{{ route('dashboard') }}"&gt;HMVC&lt;/a&gt;
+  &lt;div class="collapse navbar-collapse show" id="nav"&gt;
+   &lt;ul class="navbar-nav me-auto"&gt;
+    &lt;li&gt;&lt;a class="nav-link" href="{{ route('pendaftaran.index') }}"&gt;Pendaftaran&lt;/a&gt;&lt;/li&gt;
+    @if(auth()-&gt;user()-&gt;isAdmin())
+    &lt;li&gt;&lt;a class="nav-link" href="{{ route('admin.users.index') }}"&gt;Kelola User&lt;/a&gt;&lt;/li&gt;
+    @endif
+   &lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/div&gt;&lt;/nav&gt;</code></pre>
+            </div>
+        </div>
+
+        <!-- KOLOM KANAN: 19-24 -->
+        <div class="col">
+            <div class="item">
+                <h2><span class="n">19</span>Validasi Form dengan Laravel Form Request</h2>
+                <pre><code>$ php artisan module:make-request DaftarRequest Pendaftaran</code></pre>
+                <p class="guna"><span class="file">[P] DaftarRequest.php</span> <b>Kegunaan:</b> aturan validasi dipisah dari controller agar rapi dan dapat dipakai ulang. <i>authorize()</i> menentukan boleh/tidaknya request; <i>messages()</i> memberi pesan berbahasa Indonesia; controller cukup menulis <i>DaftarRequest $request</i>.</p>
+                <pre class="snip"><code>public function rules(): array {
+    $daftar = $this-&gt;route('pendaftaran');
+    return [
+        'nama' =&gt; ['required','string','max:255'],
+        'email' =&gt; ['required','email',
+            Rule::unique('daftars','email')-&gt;ignore($daftar?->id)],
+        'no_hp' =&gt; ['required','regex:/^[0-9+]{8,20}$/'],
+        'berkas' =&gt; [$daftar ? 'nullable' : 'required', 'file',
+            'mimes:jpg,jpeg,png,pdf', 'max:2048'],
+    ];
+}
+public function authorize(): bool { return auth()-&gt;check(); }</code></pre>
+            </div>
+
+            <div class="item">
+                <h2><span class="n">20</span>Pesan Validasi, Notifikasi &amp; Konfirmasi Hapus</h2>
+                <p class="guna"><span class="file">[P] index.blade.php</span> <b>Kegunaan:</b> validasi gagal → Laravel mengembalikan <i>$errors</i> dan <i>old()</i> agar input tidak hilang. Notifikasi sukses memakai session flash. Hapus data selalu lewat konfirmasi SweetAlert2 agar tidak terklik tak sengaja.</p>
+                <pre class="snip"><code>&lt;input name="nama" value="{{ old('nama') }}"
+  class="form-control @error('nama') is-invalid @enderror"&gt;
+@error('nama') &lt;div class="invalid-feedback"&gt;{{ $message }}&lt;/div&gt; @enderror
+@if(session('success')) &lt;div class="alert alert-success"&gt;{{ session('success') }}&lt;/div&gt; @endif
+<span class="c">// konfirmasi hapus dengan SweetAlert2</span>
+$('.btn-hapus').on('click', function () {
+    let id = $(this).data('id');
+    Swal.fire({title:'Yakin hapus?', icon:'warning', showCancelButton:true})
+      .then((r) =&gt; { if (r.isConfirmed) hapusData(id); });
+});</code></pre>
+            </div>
+
+            <div class="item">
+                <h2><span class="n">21</span>Bootstrap 5 untuk Desain Antarmuka</h2>
+                <pre><code><span class="c">&lt;!-- cukup CDN, tanpa npm build --&gt;</span>
+&lt;link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"&gt;</code></pre>
+                <p class="guna"><span class="file">[G] layouts/app.blade.php</span> <b>Kegunaan:</b> Bootstrap menyediakan komponen siap pakai (navbar, card, table, modal, alert, button) sehingga tampilan cepat rapi dan responsif. Tidak perlu Vite/Tailwind; tambahkan juga <i>bootstrap.bundle.min.js</i> untuk komponen interaktif.</p>
+                <pre class="snip"><code>&lt;div class="container py-4"&gt;
+  &lt;div class="card shadow-sm"&gt;&lt;div class="card-body"&gt;
+    &lt;h5 class="card-title"&gt;Data Pendaftar&lt;/h5&gt;
+    &lt;button class="btn btn-success btn-sm"&gt;Tambah&lt;/button&gt;
+  &lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+
+            <div class="item">
+                <h2><span class="n">22</span>Antarmuka Responsif &amp; User-Friendly</h2>
+                <p class="guna"><span class="file">[P] index.blade.php</span> <b>Kegunaan:</b> grid Bootstrap menyesuaikan lebar layar: kartu 1 kolom di HP, 2–4 kolom di desktop (<i>col-md-6</i>). Tabel dibungkus <i>table-responsive</i> agar bisa digeser; navbar memakai <i>navbar-toggler</i> untuk menu mobile. Tombol aksi diberi ikon + label jelas.</p>
+                <pre class="snip"><code>&lt;div class="row g-3"&gt;
+  &lt;div class="col-12 col-md-6 col-lg-3"&gt;&lt;div class="card"&gt;...&lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="table-responsive"&gt;&lt;table class="table table-striped align-middle"&gt;...&lt;/table&gt;&lt;/div&gt;
+&lt;button class="navbar-toggler" data-bs-toggle="collapse"
+        data-bs-target="#nav"&gt;&lt;span class="navbar-toggler-icon"&gt;&lt;/span&gt;&lt;/button&gt;</code></pre>
+
+            </div>
+
+            <div class="item">
+                <h2><span class="n">23</span>Dark Mode &amp; Indikator Loading</h2>
+                <p class="guna"><span class="file">[G] layouts/app.blade.php</span> <b>Kegunaan:</b> Bootstrap 5.3 punya tema gelap bawaan lewat atribut <i>data-bs-theme</i>; pilihan disimpan di <i>localStorage</i> agar tidak hilang saat refresh. Indikator loading memberi umpan balik: spinner saat memuat, tombol nonaktif + teks “Menyimpan...” saat proses simpan.</p>
+                <pre class="snip"><code>const html = document.documentElement;
+html.setAttribute('data-bs-theme', localStorage.getItem('theme') || 'light');
+$('#theme-toggle').on('click', function () {
+    let next = html.getAttribute('data-bs-theme') === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-bs-theme', next);
+    localStorage.setItem('theme', next);
+});
+
+&lt;button id="btn-simpan" class="btn btn-success"&gt;
+  &lt;span class="spinner-border spinner-border-sm d-none"&gt;&lt;/span&gt; Simpan
+&lt;/button&gt;
+<span class="c">// saat AJAX: spinner d-none dilepas, tombol disabled</span></code></pre>
+            </div>
+
+            <div class="item">
+                <h2><span class="n">24</span>Pengujian Fungsional &amp; Developer Tools</h2>
+                <pre><code>$ php artisan test --compact
+$ vendor/bin/pest tests/Feature/PendaftaranTest.php
+$ vendor/bin/pest --filter=admin
+$ php artisan serve   <span class="c"># lalu buka DevTools (F12)</span></code></pre>
+                <p class="guna"><span class="file">[T] PendaftaranTest.php</span> <b>Kegunaan:</b> Pest menguji route, hak akses, validasi, upload, dan JSON; contoh validasi: <i>postJson('/pendaftaran', [])</i> → 422. Di DevTools: tab <b>Network → Fetch/XHR</b> untuk request AJAX (status 200/422), tab <b>Console</b> untuk error JavaScript, dan tab <b>Application → Local Storage</b> untuk memastikan tema tersimpan.</p>
+                <pre class="snip"><code>test('user cannot open the user management page', function () {
+    $this-&gt;actingAs(User::factory()-&gt;create())
+        -&gt;get('/admin/users')-&gt;assertForbidden();
+});</code></pre>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="foot"><span>Rangkuman Asesmen 2 Praktikum PABW — Jalur A</span><span>Halaman 2 dari 2</span></div>
+</div>
+
+</body>
+</html>
