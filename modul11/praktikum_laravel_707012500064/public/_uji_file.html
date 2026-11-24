@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Buka lampiran</title>
+<style>
+  body { margin: 0; padding: 26px; background: #f1f3f5; font-family: "Segoe UI", system-ui, sans-serif; color: #1f2933; }
+  .card { max-width: 1080px; margin: 0 auto; background: #fff; border: 1px solid #d7dde3; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,.06); }
+  .card-head { display: flex; align-items: center; gap: 12px; padding: 14px 20px; border-bottom: 1px solid #e5e9ed; background: #fafbfc; }
+  .method { font: 700 13px/1 "Consolas", monospace; color: #fff; background: #2f9e44; padding: 7px 10px; border-radius: 5px; }
+  .url { font: 600 14px/1.4 "Consolas", monospace; color: #243b53; word-break: break-all; }
+  .body { padding: 18px 20px 20px; }
+  .label { font: 700 11px/1 "Segoe UI", sans-serif; letter-spacing: 1px; text-transform: uppercase; color: #7b8794; margin: 0 0 8px; }
+  .status { font: 700 13px/1 "Consolas", monospace; padding: 6px 9px; border-radius: 5px; color: #fff; background: #2f9e44; }
+  .head-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  img { display: block; width: 100%; border: 1px solid #e5e9ed; border-radius: 6px; }
+  .note { margin: 14px 0 0; font-size: 13px; color: #52606d; }
+</style>
+</head>
+<body>
+<div class="card" id="card">
+  <div class="card-head">
+    <span class="method">GET</span>
+    <span class="url" id="url">-</span>
+  </div>
+  <div class="body">
+    <div class="head-row">
+      <p class="label" style="margin:0">Response</p>
+      <span class="status">200</span>
+      <span style="font: 13px/1 'Consolas', monospace; color:#52606d" id="ctype">image/png</span>
+    </div>
+    <img id="img" alt="lampiran">
+    <p class="note">Lampiran dibuka langsung di browser melalui route publik GET /api/posts/{id}/file.</p>
+  </div>
+</div>
+<script>
+  const url = new URLSearchParams(location.search).get('url');
+  document.getElementById('url').textContent = url;
+  document.getElementById('img').src = url;
+</script>
+</body>
+</html>

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Uji REST API Blog Laravel</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 28px; background: #f1f3f5;
+    font-family: "Segoe UI", system-ui, sans-serif; color: #1f2933;
+  }
+  .card {
+    max-width: 1080px; margin: 0 auto; background: #fff; border: 1px solid #d7dde3;
+    border-radius: 10px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,.06);
+  }
+  .card-head {
+    display: flex; align-items: center; gap: 12px;
+    padding: 14px 20px; border-bottom: 1px solid #e5e9ed; background: #fafbfc;
+  }
+  .method {
+    font: 700 13px/1 "Consolas", monospace; color: #fff;
+    padding: 7px 10px; border-radius: 5px; letter-spacing: .4px;
+  }
+  .m-get { background: #2f9e44; } .m-post { background: #e8a317; }
+  .m-patch { background: #1c7ed6; } .m-delete { background: #e03131; }
+  .url { font: 600 14px/1.4 "Consolas", monospace; color: #243b53; word-break: break-all; }
+  .body { padding: 18px 20px 20px; }
+  .label {
+    font: 700 11px/1 "Segoe UI", sans-serif; letter-spacing: 1px;
+    text-transform: uppercase; color: #7b8794; margin: 0 0 7px;
+  }
+  pre {
+    margin: 0; padding: 12px 14px; background: #f8f9fa; border: 1px solid #e5e9ed;
+    border-radius: 6px; font: 13px/1.55 "Consolas", monospace; color: #243b53;
+    white-space: pre-wrap; word-break: break-word; max-height: 300px; overflow: auto;
+  }
+  .req { margin-bottom: 16px; }
+  .resp-head { display: flex; align-items: center; gap: 10px; margin-bottom: 7px; }
+  .status { font: 700 13px/1 "Consolas", monospace; padding: 6px 9px; border-radius: 5px; color: #fff; }
+  .s-ok { background: #2f9e44; } .s-err { background: #e03131; }
+  .note { margin: 16px 0 0; font-size: 13px; color: #52606d; line-height: 1.6; }
+  .done { max-width: 1080px; margin: 18px auto 0; font-size: 13px; color: #52606d; }
+</style>
+</head>
+<body>
+<div class="card" id="card">
+  <div class="card-head">
+    <span class="method" id="method">GET</span>
+    <span class="url" id="url">-</span>
+  </div>
+  <div class="body">
+    <div class="req">
+      <p class="label">Request</p>
+      <pre id="req">-</pre>
+    </div>
+    <div class="resp">
+      <div class="resp-head">
+        <p class="label" style="margin:0">Response</p>
+        <span class="status" id="status">-</span>
+      </div>
+      <pre id="resp">-</pre>
+    </div>
+    <p class="note" id="note"></p>
+  </div>
+</div>
+<div class="done" id="progress"></div>
+
+<script>
+const BASE = location.origin;
+const KEY = 'uji-api-hasil';
+const state = {};
+
+async function lampiranFile(name) {
+  const blob = await (await fetch('/_lampiran.png')).blob();
+  return new File([blob], name, { type: 'image/png' });
+}
+
+async function call(step) {
+  const headers = { Accept: 'application/json' };
+  let body;
+
+  if (step.token) headers.Authorization = 'Bearer ' + step.token();
+  if (step.json !== undefined) {
+    headers['Content-Type'] = 'application/json';
+    body = JSON.stringify(step.json);
+  }
+  if (step.form) {
+    body = new FormData();
+    for (const [k, v] of Object.entries(await step.form())) body.append(k, v);
+  }
+
+  const res = await fetch(BASE + step.path, { method: step.method, headers, body });
+  const text = await res.text();
+  let pretty = text;
+  try { pretty = JSON.stringify(JSON.parse(text), null, 2); } catch (e) {}
+
+  return {
+    label: step.label,
+    method: step.method,
+    url: BASE + step.path,
+    reqText: step.showRequest === false ? '(tanpa body)' : (body instanceof FormData ? step.reqText || '(form-data)' : (body || '(tanpa body)')),
+    status: res.status,
+    respText: pretty,
+    note: step.note || '',
+  };
+}
+
+const steps = [
+  {
+    label: 'Registrasi akun Andi',
+    method: 'POST', path: '/api/auth/register',
+    json: { name: 'Andi Pratama', email: 'andi@example.com', password: 'praktikum123' },
+    note: 'Registrasi menyimpan password dalam bentuk hash dan mengembalikan 201 Created.',
+  },
+  {
+    label: 'Registrasi dengan email yang sudah terdaftar',
+    method: 'POST', path: '/api/auth/register',
+    json: { name: 'Andi Pratama', email: 'andi@example.com', password: 'praktikum123' },
+    note: 'Email yang sudah dipakai ditolak dengan 409 Conflict.',
+  },
+  {
+    label: 'Login Budi',
+    method: 'POST', path: '/api/auth/login',
+    json: { email: 'budi@example.com', password: 'praktikum123' },
+    after: (r) => { state.tokenBudi = JSON.parse(r.respText).access_token; },
+    note: 'Login mengembalikan access_token yang dipakai pada header Authorization.',
+  },
+  {
+    label: 'Login dengan password salah',
+    method: 'POST', path: '/api/auth/login',
+    json: { email: 'budi@example.com', password: 'salahsekali' },
+    note: 'Password yang tidak cocok menghasilkan 401 Unauthorized.',
+  },
+  {
+    label: 'Tambah artikel tanpa token',
+    method: 'POST', path: '/api/posts',
+    json: { title: 'Artikel Budi', content: 'Isi artikel milik Budi.' },
+    note: 'Endpoint POST /api/posts dilindungi middleware auth:sanctum.',
+  },
+  {
+    label: 'Tambah artikel dengan token Budi',
+    method: 'POST', path: '/api/posts',
+    token: () => state.tokenBudi,
+    json: { title: 'Artikel Budi', content: 'Isi artikel milik Budi.' },
+    after: (r) => { state.postId = JSON.parse(r.respText).id; },
+    note: 'user_id terisi otomatis dari pengguna yang sedang login.',
+  },
+  {
+    label: 'Validasi judul kosong',
+    method: 'POST', path: '/api/posts',
+    token: () => state.tokenBudi,
+    json: { title: '', content: 'Isi artikel.' },
+    note: 'Form Request menolak data tidak valid dengan 422 Unprocessable Content.',
+  },
+  {
+    label: 'Ambil semua artikel',
+    method: 'GET', path: '/api/posts',
+    note: 'Daftar artikel dapat dibaca tanpa token.',
+  },
+  {
+    label: 'Ambil satu artikel',
+    method: 'GET', path: () => '/api/posts/' + state.postId,
+    note: 'Detail artikel beserta file_url.',
+  },
+  {
+    label: 'Ambil artikel yang tidak ada',
+    method: 'GET', path: '/api/posts/9999',
+    note: 'ID yang tidak ditemukan dibalas 404 Not Found.',
+  },
+  {
+    label: 'Login Andi',
+    method: 'POST', path: '/api/auth/login',
+    json: { email: 'andi@example.com', password: 'praktikum123' },
+    after: (r) => { state.tokenAndi = JSON.parse(r.respText).access_token; },
+    note: 'Akun kedua dipakai untuk menguji kepemilikan artikel.',
+  },
+  {
+    label: 'Andi mengubah artikel milik Budi',
+    method: 'PATCH', path: () => '/api/posts/' + state.postId,
+    token: () => state.tokenAndi,
+    json: { title: 'Diubah oleh Andi' },
+    note: 'findOwnedPost() menolak pengguna yang bukan pemilik dengan 403 Forbidden.',
+  },
+  {
+    label: 'Budi mengubah artikelnya sendiri',
+    method: 'PATCH', path: () => '/api/posts/' + state.postId,
+    token: () => state.tokenBudi,
+    json: { title: 'Judul Diubah oleh Budi' },
+    note: 'Pemilik artikel boleh mengubah datanya, respons 200 OK.',
+  },
+  {
+    label: 'Upload artikel dengan lampiran gambar',
+    method: 'POST', path: '/api/posts',
+    token: () => state.tokenBudi,
+    form: async () => ({
+      title: 'ini ada gambar',
+      content: 'gambar dari gambarr',
+      file: await lampiranFile('gambar.png'),
+    }),
+    reqText: 'title = ini ada gambar\ncontent = gambar dari gambarr\nfile = gambar.png (image/png)',
+    after: (r) => {
+      const j = JSON.parse(r.respText);
+      state.postFile = j.id;
+      state.fileUrl = j.file_url;
+    },
+    note: 'File disimpan di storage/app/private/posts, file_path disembunyikan, file_url ditambahkan.',
+  },
+  {
+    label: 'Ganti lampiran dengan _method=PATCH',
+    method: 'POST', path: () => '/api/posts/' + state.postFile,
+    token: () => state.tokenBudi,
+    form: async () => ({
+      _method: 'PATCH',
+      title: 'gambar ganti',
+      content: 'gambar harus ganti ya',
+      file: await lampiranFile('gambar-baru.png'),
+    }),
+    reqText: '_method = PATCH\ntitle = gambar ganti\ncontent = gambar harus ganti ya\nfile = gambar-baru.png (image/png)',
+    note: 'PHP hanya membaca file pada request POST, jadi PATCH dikirim lewat method spoofing.',
+  },
+  {
+    label: 'Hapus lampiran tanpa mengganti',
+    method: 'PATCH', path: () => '/api/posts/' + state.postFile,
+    token: () => state.tokenBudi,
+    json: { remove_file: true },
+    note: 'Field remove_file menghapus file lama dan mengosongkan file_path serta file_name.',
+  },
+  {
+    label: 'Upload file dengan ekstensi tidak diizinkan',
+    method: 'POST', path: '/api/posts',
+    token: () => state.tokenBudi,
+    form: async () => ({
+      title: 'Arduinio',
+      content: 'nyoba arduino',
+      file: new File(['void setup() {}'], 'Arduino.ino', { type: 'text/plain' }),
+    }),
+    reqText: 'title = Arduinio\ncontent = nyoba arduino\nfile = Arduino.ino (text/plain)',
+    note: 'Ekstensi .ino tidak ada di daftar mimes, sehingga ditolak 422.',
+  },
+  {
+    label: 'Upload file lebih dari 5 MB',
+    method: 'POST', path: '/api/posts',
+    token: () => state.tokenBudi,
+    form: async () => ({
+      title: 'file besar',
+      content: 'uji ukuran',
+      file: new File([new Uint8Array(6 * 1024 * 1024)], 'besar.txt', { type: 'text/plain' }),
+    }),
+    reqText: 'title = file besar\ncontent = uji ukuran\nfile = besar.txt (6 MB)',
+    note: 'Aturan max:5120 menolak file di atas 5 MB dengan 422.',
+  },
+  {
+    label: 'Hapus artikel beserta lampirannya',
+    method: 'DELETE', path: () => '/api/posts/' + state.postFile,
+    token: () => state.tokenBudi,
+    note: 'destroy() menghapus file dari storage lalu menghapus baris artikel.',
+  },
+  {
+    label: 'Artikel dengan lampiran gambar',
+    method: 'POST', path: '/api/posts',
+    token: () => state.tokenBudi,
+    form: async () => ({
+      title: 'Artikel dengan gambar',
+      content: 'Lampiran dibuka lewat file_url.',
+      file: await lampiranFile('contoh-gambar.png'),
+    }),
+    reqText: 'title = Artikel dengan gambar\ncontent = Lampiran dibuka lewat file_url.\nfile = contoh-gambar.png (image/png)',
+    after: (r) => { state.fileKeep = JSON.parse(r.respText).file_url; },
+    note: 'file_url pada respons dipakai untuk membuka lampiran.',
+  },
+];
+
+function el(id) { return document.getElementById(id); }
+
+function render(r) {
+  const method = el('method');
+  method.textContent = r.method;
+  method.className = 'method m-' + r.method.toLowerCase();
+  el('url').textContent = r.url;
+  el('req').textContent = r.reqText;
+  el('status').textContent = r.status;
+  el('status').className = 'status ' + (r.status < 400 ? 's-ok' : 's-err');
+  el('resp').textContent = r.respText;
+  el('note').textContent = r.note;
+  document.title = r.label;
+}
+
+async function runAll() {
+  const results = [];
+  for (const step of steps) {
+    const path = typeof step.path === 'function' ? step.path() : step.path;
+    const s = Object.assign({}, step, { path });
+    const r = await call(s);
+    results.push(r);
+    if (step.after) step.after(r);
+    el('progress').textContent = 'Menjalankan ' + results.length + '/' + steps.length + ': ' + r.label;
+  }
+  localStorage.setItem(KEY, JSON.stringify(results));
+  el('progress').textContent = 'Selesai. ' + results.length + ' request berhasil dijalankan.';
+  render(results[results.length - 1]);
+  window.__done = true;
+}
+
+const show = new URLSearchParams(location.search).get('show');
+const only = new URLSearchParams(location.search).get('only');
+if (only !== null) {
+  const params = new URLSearchParams(location.search);
+  if (params.get('token')) state.tokenAndi = params.get('token');
+  if (params.get('post')) state.postId = params.get('post');
+  const step = steps[Number(only)];
+  const path = typeof step.path === 'function' ? step.path() : step.path;
+  call(Object.assign({}, step, { path })).then((r) => {
+    render(r);
+    window.__done = true;
+  });
+} else if (show !== null) {
+  const results = JSON.parse(localStorage.getItem(KEY) || '[]');
+  if (results[show]) render(results[show]);
+  else el('progress').textContent = 'Hasil belum tersedia.';
+  window.__done = true;
+} else {
+  runAll();
+}
+</script>
+</body>
+</html>

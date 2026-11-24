@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Keluaran terminal</title>
+<style>
+  body { margin: 0; padding: 26px; background: #f1f3f5; font-family: "Segoe UI", system-ui, sans-serif; color: #1f2933; }
+  .card { max-width: 1100px; margin: 0 auto 26px; }
+  .term { background: #1b1f24; border-radius: 10px; overflow: hidden; box-shadow: 0 3px 14px rgba(0,0,0,.18); }
+  .bar { display: flex; gap: 7px; padding: 11px 14px; background: #262b31; }
+  .dot { width: 11px; height: 11px; border-radius: 50%; background: #4b545e; }
+  .screen { padding: 16px 18px 18px; }
+  .cmd { margin: 0 0 10px; font: 13px/1.5 "Consolas", monospace; color: #9ad1a0; word-break: break-all; }
+  pre { margin: 0; font: 12.5px/1.5 "Consolas", monospace; color: #e6e9ec; white-space: pre-wrap; }
+  .note { margin: 10px 2px 0; font-size: 13px; color: #52606d; }
+</style>
+</head>
+<body>
+  <section class="card" id="route">
+    <div class="term">
+      <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+      <div class="screen">
+        <p class="cmd">PS D:\laragon\www\PABW\Praktikum\modul11\praktikum_laravel_707012500064&gt; php artisan route:list --path=api</p>
+        <pre>
+  POST       api/auth/login ..................................................................... AuthController@login
+  POST       api/auth/logout ................................................................... AuthController@logout
+  GET|HEAD   api/auth/me ........................................................................... AuthController@me
+  POST       api/auth/register ............................................................... AuthController@register
+  GET|HEAD   api/posts .......................................................................... PostController@index
+  POST       api/posts .......................................................................... PostController@store
+  GET|HEAD   api/posts/{id} ...................................................................... PostController@show
+  PATCH      api/posts/{id} .................................................................... PostController@update
+  DELETE     api/posts/{id} ................................................................... PostController@destroy
+  GET|HEAD   api/posts/{id}/file ................................................................. PostController@file
+
+                                                                                                   Showing [10] routes</pre>
+      </div>
+    </div>
+    <p class="note">Sepuluh route terdaftar, termasuk route file di luar middleware auth:sanctum.</p>
+  </section>
+  <section class="card" id="posts">
+    <div class="term">
+      <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+      <div class="screen">
+        <p class="cmd">PS D:\laragon\www\PABW\Praktikum\modul11\praktikum_laravel_707012500064&gt; php artisan db:table posts</p>
+        <pre>
+  blog_laravel.posts .................................................................................................  
+  Columns .......................................................................................................... 8  
+  Size ...................................................................................................... 32.00 KB  
+  Engine ...................................................................................................... InnoDB  
+  Collation ....................................................................................... utf8mb4_unicode_ci  
+
+  Column ........................................................................................................ Type  
+  id bigint, autoincrement ........................................................................... bigint unsigned  
+  user_id bigint, nullable ........................................................................... bigint unsigned  
+  title varchar, utf8mb4_unicode_ci ..................................................................... varchar(200)  
+  content text, utf8mb4_unicode_ci .............................................................................. text  
+  file_path varchar, nullable, utf8mb4_unicode_ci ....................................................... varchar(255)  
+  file_name varchar, nullable, utf8mb4_unicode_ci ....................................................... varchar(255)  
+  created_at timestamp, nullable ........................................................................... timestamp  
+  updated_at timestamp, nullable ........................................................................... timestamp  
+
+  Index ..............................................................................................................  
+  posts_user_id_foreign user_id ................................................................................ btree  
+  primary id .......................................................................................... btree, primary  
+
+  Foreign Key .................................................................................. On Update / On Delete  
+  posts_user_id_foreign user_id references id on users ........................................... no action / cascade  </pre>
+      </div>
+    </div>
+    <p class="note">Kolom file_path dan file_name bertipe varchar dan boleh kosong.</p>
+  </section>
+  <section class="card" id="cors">
+    <div class="term">
+      <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+      <div class="screen">
+        <p class="cmd">PS D:\laragon\www\PABW\Praktikum\modul11\praktikum_laravel_707012500064&gt; curl.exe -i -X OPTIONS http://localhost:8000/api/posts -H &quot;Origin: http://localhost:5173&quot; -H &quot;Access-Control-Request-Method: GET&quot;</p>
+        <pre>HTTP/1.0 204 No Content
+Host: localhost:8000
+Connection: close
+X-Powered-By: PHP/8.5.10
+Cache-Control: no-cache, private
+Date: Mon, 23 Nov 2026 03:55:04 GMT
+Access-Control-Allow-Origin: http://localhost:5173
+Vary: Origin, Access-Control-Request-Method
+Access-Control-Allow-Methods: GET
+Access-Control-Allow-Headers: content-type, authorization, accept
+Access-Control-Max-Age: 0
+Content-type: text/html; charset=UTF-8</pre>
+      </div>
+    </div>
+    <p class="note">Header Access-Control-Allow-Origin berisi alamat React, jadi browser diizinkan mengakses API.</p>
+  </section>
+  <section class="card" id="hash">
+    <div class="term">
+      <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+      <div class="screen">
+        <p class="cmd">PS D:\laragon\www\PABW\Praktikum\modul11\praktikum_laravel_707012500064&gt; php artisan tinker --execute=&quot;echo App\Models\User::where(&#x27;email&#x27;,&#x27;budi@example.com&#x27;)-&gt;value(&#x27;password&#x27;);&quot;</p>
+        <pre>$2y$12$.q.BZhy6YlIUp1o0BnK0weAXNwqYRRWQ/kGyy33EcjAEOh58FKZPK</pre>
+      </div>
+    </div>
+    <p class="note">Password tidak disimpan sebagai teks asli, melainkan hash bcrypt yang diawali $2y$.</p>
+  </section>
+</body>
+</html>
